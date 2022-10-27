@@ -6,6 +6,67 @@ const mainFunction = async () => {
   const itemId = getItemId();
   const item = await getItem(itemId);
   showItems(item);
+  //-------------------------------------------------------------------//
+  const btn = document.querySelector('button');
+
+  const couleurKanap = document.querySelector('#colors');
+  const quantiteKanap = document.querySelector('#quantity');
+
+  btn.addEventListener('click', (e) => {
+    e.preventDefault();
+
+    const choixColor = couleurKanap.value;
+    const choixQantite = quantiteKanap.value;
+
+    const itemProductss = {
+      imageDuProduit: item.imageUrl,
+      nomDuProduit: item.name,
+      couleurDuProduit: choixColor,
+      prixDuProduit: item.price,
+      nombreDeProduit: choixQantite,
+    };
+    console.log(itemProductss);
+
+    let produitEnregistreDansLocalStorage = JSON.parse(
+      localStorage.getItem('produit')
+    );
+    console.log(produitEnregistreDansLocalStorage);
+
+    const popupConfirmation = () => {
+      if (
+        window.confirm(`${showItems.nomProduit} a bien été ajouté au panier
+consulter le panier OK ou revenir à l'accueil ANNULER`)
+      ) {
+        window.location.href = 'cart.html';
+      } else {
+        window.location.href = 'index.html';
+      }
+    };
+
+    //fonciton ajouter un produit sélectionné dans le local storage
+    const ajoutProduitLocalStorage = () => {
+      produitEnregistreDansLocalStorage.push(itemProductss);
+      localStorage.setItem(
+        'produit',
+        JSON.stringify(produitEnregistreDansLocalStorage)
+      );
+    };
+
+    //s'il y a déja des produits d'enregistré dans le local storage
+    if (produitEnregistreDansLocalStorage) {
+      ajoutProduitLocalStorage();
+      // popupConfirmation();
+    }
+    //s'il n'y a pas de produits d'enregistré dans le local storage
+    else {
+      produitEnregistreDansLocalStorage = [];
+      ajoutProduitLocalStorage();
+
+      console.log(produitEnregistreDansLocalStorage);
+      // popupConfirmation();
+    }
+  });
+  //-------------------------------------------------------------------//
 };
 
 const getItem = async (itemId) => {
@@ -25,6 +86,7 @@ const showItems = (item) => {
   let colorsId = document.querySelector('#colors');
 
   item2.appendChild(img);
+
   title.innerHTML = item.name;
   price.innerHTML = item.price;
   img.src = item.imageUrl;
@@ -38,56 +100,10 @@ const showItems = (item) => {
   }
 };
 
+/****************************************/
+/****************************************/
+
 mainFunction();
-
-/**************************/
-
-// const addProductInCart = async () => {
-//   const itemId = getItemId();
-//   const item = await getItem(itemId);
-//   showItems(item);
-// };
-
-// const getItemId = () => {
-//   return new URL(location.href).searchParams.get('id');
-// };
-// const getItem = (itemId) => {
-//   return fetch(`http://localhost:3000/api/products/${itemId}`)
-//     .then(function (httpBodyResponse) {
-//       return httpBodyResponse.json();
-//     })
-//     .then(function (product) {
-//       return product;
-//     })
-//     .catch(function (error) {
-//       alert('Erreur de chargement des produits');
-//     });
-// };
-
-// const showItems = (item) => {
-//   let item2 = document.querySelector('.item__img');
-//   let title = document.querySelector('#title');
-
-//   let price = document.querySelector('#price');
-//   let img = document.createElement('img');
-//   let p = document.querySelector('#description');
-//   let colorsId = document.querySelector('#colors');
-
-//   item2.appendChild(img);
-//   title.innerHTML = item.name;
-//   price.innerHTML = item.price;
-//   img.src = item.imageUrl;
-//   p.innerHTML = item.description;
-
-//   for (const color of item.colors) {
-//     let option = document.createElement('option');
-//     // console.log(option);
-//     option.innerHTML = color;
-//     colorsId.appendChild(option);
-//   }
-// };
-
-// addProductInCart();
 
 /****************************************/
 /****************************************/
