@@ -2,7 +2,34 @@ const getItemId = () => {
   return new URL(location.href).searchParams.get('id');
 };
 
+//fonciton ajouter un produit sélectionné dans le local storage
+const ajoutProduitLocalStorage = (itemProductss) => {
+  if(){}else(){}
+  dataLocalStorage.push(itemProductss);
+  localStorage.setItem('produit', JSON.stringify(dataLocalStorage));
+};
+
+const popupConfirmation = (itemProductss) => {
+  if (
+    window.confirm(`${itemProductss.nomDuProduit} a bien été ajouté au panier
+Souhaitez-vous rejoindre le panier ?`)
+  ) {
+    window.location.href = 'cart.html';
+  } else {
+    window.location.href = 'index.html';
+  }
+};
+
 const mainFunction = async () => {
+  //--------
+  dataLocalStorage = JSON.parse(localStorage.getItem('produit'));
+  console.log(dataLocalStorage);
+
+  //s'il y a déja des produits d'enregistré dans le local storage
+  if (!dataLocalStorage) {
+    dataLocalStorage = [];
+  }
+  //--------
   const itemId = getItemId();
   const item = await getItem(itemId);
   showItems(item);
@@ -12,8 +39,8 @@ const mainFunction = async () => {
   const couleurKanap = document.querySelector('#colors');
   const quantiteKanap = document.querySelector('#quantity');
 
-  btn.addEventListener('click', (e) => {
-    e.preventDefault();
+  btn.addEventListener('click', () => {
+    // e.preventDefault();
 
     const choixColor = couleurKanap.value;
     const choixQantite = quantiteKanap.value;
@@ -27,45 +54,10 @@ const mainFunction = async () => {
     };
     console.log(itemProductss);
 
-    let produitEnregistreDansLocalStorage = JSON.parse(
-      localStorage.getItem('produit')
-    );
-    console.log(produitEnregistreDansLocalStorage);
-
-    const popupConfirmation = () => {
-      if (
-        window.confirm(`${showItems.nomProduit} a bien été ajouté au panier
-consulter le panier OK ou revenir à l'accueil ANNULER`)
-      ) {
-        window.location.href = 'cart.html';
-      } else {
-        window.location.href = 'index.html';
-      }
-    };
-
-    //fonciton ajouter un produit sélectionné dans le local storage
-    const ajoutProduitLocalStorage = () => {
-      produitEnregistreDansLocalStorage.push(itemProductss);
-      localStorage.setItem(
-        'produit',
-        JSON.stringify(produitEnregistreDansLocalStorage)
-      );
-    };
-
-    //s'il y a déja des produits d'enregistré dans le local storage
-    if (produitEnregistreDansLocalStorage) {
-      ajoutProduitLocalStorage();
-      // popupConfirmation();
-    }
-    //s'il n'y a pas de produits d'enregistré dans le local storage
-    else {
-      produitEnregistreDansLocalStorage = [];
-      ajoutProduitLocalStorage();
-
-      console.log(produitEnregistreDansLocalStorage);
-      // popupConfirmation();
-    }
+    ajoutProduitLocalStorage(itemProductss);
+    popupConfirmation(itemProductss);
   });
+
   //-------------------------------------------------------------------//
 };
 
@@ -100,9 +92,13 @@ const showItems = (item) => {
   }
 };
 
-/****************************************/
-/****************************************/
+//-------------------------------------------------------------------//
 
+//-------------------------------------------------------------------//
+
+/****************************************/
+/****************************************/
+let dataLocalStorage;
 mainFunction();
 
 /****************************************/
