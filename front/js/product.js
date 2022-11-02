@@ -2,9 +2,15 @@ const getItemId = () => {
   return new URL(location.href).searchParams.get('id');
 };
 
+//------
+
 //fonciton ajouter un produit sélectionné dans le local storage
 const ajoutProduitLocalStorage = (itemProductss) => {
-  if(){}else(){}
+  if ("produit n'existe pas") {
+    ("l'ajouer");
+  } else {
+    ('augmenter juste la quantité');
+  }
   dataLocalStorage.push(itemProductss);
   localStorage.setItem('produit', JSON.stringify(dataLocalStorage));
 };
@@ -20,12 +26,16 @@ Souhaitez-vous rejoindre le panier ?`)
   }
 };
 
+//-------------------------------------------------------------------//
+
+//-------------------------------------------------------------------//
+
 const mainFunction = async () => {
   //--------
   dataLocalStorage = JSON.parse(localStorage.getItem('produit'));
   console.log(dataLocalStorage);
 
-  //s'il y a déja des produits d'enregistré dans le local storage
+  //s'il n'y a pas déja des produits d'enregistré dans le local storage
   if (!dataLocalStorage) {
     dataLocalStorage = [];
   }
@@ -33,11 +43,20 @@ const mainFunction = async () => {
   const itemId = getItemId();
   const item = await getItem(itemId);
   showItems(item);
+
+  //-------------------------------------------------------------------//
+
+  //-------------------------------------------------------------------//
+
   //-------------------------------------------------------------------//
   const btn = document.querySelector('button');
 
   const couleurKanap = document.querySelector('#colors');
   const quantiteKanap = document.querySelector('#quantity');
+
+  //-------------------------------------------------------------------//
+
+  //-------------------------------------------------------------------//
 
   btn.addEventListener('click', () => {
     // e.preventDefault();
