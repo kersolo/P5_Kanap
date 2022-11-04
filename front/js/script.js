@@ -9,6 +9,8 @@ const fetchCall = async () => {
   const response = await fetch('http://localhost:3000/api/products');
   const products = await response.json();
 
+  console.log(products);
+
   return products;
 };
 

@@ -65,6 +65,8 @@ const mainFunction = async () => {
     const choixQantite = quantiteKanap.value;
 
     const itemProductss = {
+      // ajouter id produit
+      idDuProduit: item._id,
       imageDuProduit: item.imageUrl,
       nomDuProduit: item.name,
       couleurDuProduit: choixColor,
