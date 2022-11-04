@@ -1,41 +1,32 @@
 const mainFunction = async () => {
-  const productsData = await dataLocalStorage();
+  const productsData = dataLocalStorage();
   for (const product of productsData) {
     createHtml(product);
-    deleteItemProduct();
+    deleteItemProduct(productsData);
   }
 };
 
-const dataLocalStorage = async () => {
+const dataLocalStorage = () => {
   return JSON.parse(localStorage.getItem('produit'));
 };
 console.log(dataLocalStorage);
 
 //-------------------------------BUTTON SUPPR-------------------------------//
-// Fonction permettant de supprimer les produits du panier.
-function deleteItemProduct() {
-  // Cible le bouton supprimer.
+function deleteItemProduct(productsData) {
   const deleteButton = document.querySelectorAll('.deleteItem');
 
-  // Boucle dans le local storage et ajoute un évènement au clique pour supprimer les produits au clique via l'addEventListener "click".
-  for (let i = 0; i < dataLocalStorage.length; i++) {
+  for (let i = 0; i < productsData.length; i++) {
     deleteButton[i].addEventListener('click', (e) => {
       e.preventDefault();
-      // Ces deux variables permettent de supprimer un objet via son ID et sa couleur.
-      let supprimerId = dataLocalStorage[i].idDuProduit;
 
-      // Filtre les objets n'ayant pas la même ID ou même couleur que l'élément cliqué
-      dataLocalStorage = dataLocalStorage.filter(
-        (el) => el.idDuProduit != supprimerId
-      );
+      let supprimerId = productsData[i].idDuProduit;
 
-      // Effectue les modifications dans le local storage en transformant en chaine de caractère grâce à stringify.
-      localStorage.setItem('produit', JSON.stringify(dataLocalStorage));
+      productsData = productsData.filter((el) => el.idDuProduit != supprimerId);
 
-      // Pop-up alerte indiquant à l'usager que le produit séléctionné a bien été supprimer
+      localStorage.setItem('produit', JSON.stringify(productsData));
+
       alert('Cette élement a bien été supprimer du panier');
 
-      // Rechargement de la page pour prendre en compte les modifications
       window.location.href = 'cart.html';
     });
   }

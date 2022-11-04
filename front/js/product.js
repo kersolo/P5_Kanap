@@ -6,11 +6,14 @@ const getItemId = () => {
 
 //fonciton ajouter un produit sélectionné dans le local storage
 const ajoutProduitLocalStorage = (itemProductss) => {
-  if ("produit n'existe pas") {
-    ("l'ajouer");
-  } else {
-    ('augmenter juste la quantité');
+  for (i = 0; i < dataLocalStorage.length; i++) {
+    if ("produit n'existe pas") {
+      ("l'ajouer");
+    } else {
+      ('augmenter juste la quantité');
+    }
   }
+
   dataLocalStorage.push(itemProductss);
   localStorage.setItem('produit', JSON.stringify(dataLocalStorage));
 };
