@@ -2,21 +2,42 @@ const getItemId = () => {
   return new URL(location.href).searchParams.get('id');
 };
 
-//------
-
-//fonciton ajouter un produit sélectionné dans le local storage
+//------********************//
 const ajoutProduitLocalStorage = (itemProductss) => {
-  for (i = 0; i < dataLocalStorage.length; i++) {
-    if ("produit n'existe pas") {
-      ("l'ajouer");
-    } else {
-      ('augmenter juste la quantité');
-    }
+  let product = dataLocalStorage.find(
+    (p) =>
+      p.idDuProduit == itemProductss.idDuProduit &&
+      p.couleurDuProduit == itemProductss.couleurDuProduit
+  );
+
+  if (product != undefined) {
+    let ajoutDeQuantite =
+      parseInt(itemProductss.nombreDeProduit) +
+      parseInt(product.nombreDeProduit);
+    product.nombreDeProduit = ajoutDeQuantite;
+  } else {
+    itemProductss.nombreDeProduit = itemProductss.nombreDeProduit;
+    dataLocalStorage.push(itemProductss);
   }
 
-  dataLocalStorage.push(itemProductss);
   localStorage.setItem('produit', JSON.stringify(dataLocalStorage));
 };
+
+//------********************//
+
+//fonciton ajouter un produit sélectionné dans le local storage
+// const ajoutProduitLocalStorage = (itemProductss) => {
+//   for (i = 0; i < dataLocalStorage.length; i++) {
+//     if ("produit n'existe pas") {
+//       ("l'ajouer");
+//     } else {
+//       ('augmenter juste la quantité');
+//     }
+//   }
+
+//   dataLocalStorage.push(itemProductss);
+//   localStorage.setItem('produit', JSON.stringify(dataLocalStorage));
+// };
 
 const popupConfirmation = (itemProductss) => {
   if (
@@ -78,8 +99,17 @@ const mainFunction = async () => {
     };
     console.log(itemProductss);
 
-    ajoutProduitLocalStorage(itemProductss);
-    popupConfirmation(itemProductss);
+    if (dataLocalStorage) {
+      ajoutProduitLocalStorage(itemProductss);
+      popupConfirmation(itemProductss);
+    } else {
+      dataLocalStorage = [];
+      ajoutProduitLocalStorage(itemProductss);
+      popupConfirmation(itemProductss);
+    }
+
+    // ajoutProduitLocalStorage(itemProductss);
+    // popupConfirmation(itemProductss);
   });
 
   //-------------------------------------------------------------------//
