@@ -1,20 +1,29 @@
-let loadcart = () => {
-  let dataLocalStorage = JSON.parse(localStorage.getItem('produit'));
-  if (dataLocalStorage === null) {
-    dataLocalStorage = [];
-  }
-  return dataLocalStorage;
+const mainFunction = () => {
+  loadcart();
+  createHtml();
+  deleteItemProduct();
 };
-let dataLocalStorage = loadcart();
 
+let loadcart = () => {
+  let dataProduct = localStorage.getItem('produits');
+  if (dataProduct == null) {
+    return [];
+  } else {
+    return JSON.parse(dataProduct);
+  }
+};
+let dataProduct = loadcart();
+
+/****************************************/
 const createHtml = () => {
-  for (let i = 0; i < dataLocalStorage.length; i++) {
+  for (let data of dataProduct) {
     let section_cart__items = document.querySelector('#cart__items');
 
     //***Création constantes***//
     let article_cart__item = document.createElement('article');
 
-    article_cart__item.id = `${dataLocalStorage[i].idDuProduit}`;
+    // article_cart__item.id = `${data.idDuProduit}`;
+    article_cart__item.id = data.idDuProduit;
 
     let div_cart__item__img = document.createElement('div');
     let img = document.createElement('img');
@@ -33,7 +42,7 @@ const createHtml = () => {
     input.name = 'itemQuantity';
     input.min = 1;
     input.max = 100;
-    input.value = dataLocalStorage[i].nombreDeProduit;
+    input.value = data.nombreDeProduit;
     let div_cart__item__content__settings__delete =
       document.createElement('div');
     let p_deleteItem = document.createElement('p');
@@ -81,30 +90,31 @@ const createHtml = () => {
 
     // console.log(section_cart__items);
 
-    img.src = dataLocalStorage[i].imageDuProduit;
-    h2_name_description.innerText = dataLocalStorage[i].nomDuProduit;
-    p_color_description.innerText = dataLocalStorage[i].couleurDuProduit;
-    p_price_description.innerText = dataLocalStorage[i].prixDuProduit + ' €';
+    img.src = data.imageDuProduit;
+    h2_name_description.innerText = data.nomDuProduit;
+    p_color_description.innerText = data.couleurDuProduit;
+    p_price_description.innerText = data.prixDuProduit + ' €';
     p_quantity.innerText = 'Qté : ';
     // input.innerText = product.nombreDeProduit;
     p_deleteItem.innerText = 'Supprimer';
   }
 };
+/****************************************/
+
+/****************************************/
 //-------------------------------BUTTON SUPPR-------------------------------//
 
 function deleteItemProduct() {
   const deleteButton = document.querySelectorAll('.deleteItem');
 
-  for (let j = 0; j < dataLocalStorage.length; j++) {
-    deleteButton[j].addEventListener('click', () => {
+  for (let test of dataProduct) {
+    deleteButton.addEventListener('click', () => {
       //creation fonction
-      let supprimerId = dataLocalStorage[j].idDuProduit;
+      let supprimerId = dataProduct.idDuProduit;
 
-      dataLocalStorage = dataLocalStorage.filter(
-        (el) => el.idDuProduit != supprimerId
-      );
+      dataProduct = dataProduct.filter((el) => el.idDuProduit != supprimerId);
 
-      localStorage.setItem('produit', JSON.stringify(dataLocalStorage));
+      localStorage.setItem('produit', JSON.stringify(dataProduct));
 
       alert('Cette élement a bien été supprimer du panier');
 
@@ -113,40 +123,46 @@ function deleteItemProduct() {
     //creation fonction
   }
 }
-let produitPanier = [];
-if (dataLocalStorage === null || dataLocalStorage == 0) {
-  localStorage.removeItem('produit');
-}
+// let produitPanier = [];
+// if (dataLocalStorage === null || dataLocalStorage == 0) {
+//   localStorage.removeItem('produit');
+// }
 
-//-------------------------------FIN BUTTON SUPPR-------------------------------//
-//***************//
+// /****************************************/
+// let produitPanier = [];
+// if (dataProduct === null || dataProduct == 0) {
+//   localStorage.removeItem('produit');
+// }
+// /****************************************/
 
-//-------------------------------Fin AFFICHER LA QUANTITE ET LE PRIX-------------------------------//
-let Quantity = document.querySelector('#totalQuantity');
-let PrixTotal = document.querySelector('#totalPrice');
+// // -------------------------------FIN BUTTON SUPPR-------------------------------//
+// // ***************//
 
-let quantityAndTotalPrice = () => {
-  const totalQuantity = dataLocalStorage.reduce(
-    (previousValue, currentValue) =>
-      previousValue + parseInt(currentValue.nombreDeProduit),
-    0
-  );
-  const totalPrice = dataLocalStorage.reduce(
-    (previousValue, currentValue) =>
-      previousValue + parseInt(currentValue.prixDuProduit),
-    0
-  );
-  Quantity.innerText = totalQuantity;
-  PrixTotal.innerText = totalPrice;
-};
+// // -------------------------------Fin AFFICHER LA QUANTITE ET LE PRIX-------------------------------//
+// let Quantity = document.querySelector('#totalQuantity');
+// let PrixTotal = document.querySelector('#totalPrice');
+
+// let quantityAndTotalPrice = () => {
+//   const totalQuantity = dataProduct.reduce(
+//     (previousValue, currentValue) =>
+//       previousValue + parseInt(currentValue.nombreDeProduit),
+//     0
+//   );
+//   const totalPrice = dataProduct.reduce(
+//     (previousValue, currentValue) =>
+//       previousValue + parseInt(currentValue.prixDuProduit),
+//     0
+//   );
+//   Quantity.innerText = totalQuantity;
+//   PrixTotal.innerText = totalPrice;
+// };
 
 //-------------------------------Fin AFFICHER LA QUANTITE ET LE PRIX-------------------------------//
 
 //----pouvoir modifier la quantité----///
 
-createHtml();
-deleteItemProduct();
-// prixTotal();
-// quantityTotal();
+// createHtml();
+// deleteItemProduct();
 
-quantityAndTotalPrice();
+// quantityAndTotalPrice();
+mainFunction();
