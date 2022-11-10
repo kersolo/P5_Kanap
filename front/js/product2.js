@@ -73,7 +73,7 @@ const addData = (product) => {
   if (foundProduct != undefined) {
     foundProduct.nombreDeProduit++;
   } else {
-    product.nombreDeProduit = 1;
+    product.nombreDeProduit < 1;
     dataProduct.push(product);
   }
   setData(dataProduct);
