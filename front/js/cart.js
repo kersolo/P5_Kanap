@@ -1,27 +1,36 @@
 const mainFunction = () => {
-  loadcart();
-  createHtml();
-  deleteItemProduct();
-  changeQuantity();
-  quantityAndTotalPrice();
-  getDataForm();
-  firstNameFunction();
-  lastNameFunction();
-  addressFunction();
-  cityFunction();
-  emailFunction();
-};
+  let testform = document.querySelector('.cart__order');
+  let formTest = document.querySelector('.cart__order__form');
 
-let loadcart = () => {
-  let dataProduct = localStorage.getItem('produits');
-  if (dataProduct == null) {
-    return [];
+  let votrePanier = document.querySelector('#cartAndFormContainer h1');
+
+  if (dataProduct == 0) {
+    testform.removeChild(formTest);
+    votrePanier.innerHTML = 'Votre panier est vide';
   } else {
-    return JSON.parse(dataProduct);
+    createHtml();
+    deleteItemProduct();
+    changeQuantity();
+    quantityAndTotalPrice();
+
+    getDataForm();
+
+    firstNameFunction();
+    lastNameFunction();
+    addressFunction();
+    cityFunction();
+    emailFunction();
   }
 };
-
+import { loadcart } from './modules.js';
 let dataProduct = loadcart();
+
+// let tt = document.querySelector('.cart__order');
+// let formulaireSuppr = document.querySelector('.cart__order__form');
+
+// if (dataProduct == 0) {
+//   tt.removeChild(formulaireSuppr);
+// }
 
 /****************************************/
 const createHtml = () => {
@@ -152,7 +161,6 @@ const deleteItemProduct = () => {
   }
 };
 
-let produitPanier = [];
 if (dataProduct === null || dataProduct == 0) {
   localStorage.removeItem('produits');
 }
@@ -212,10 +220,19 @@ let quantityAndTotalPrice = () => {
   );
   Quantity.innerText = totalQuantity;
   PrixTotal.innerText = totalPrice;
+  console.log(totalQuantity);
+
+  //Affiche la quantité sur le panier du menu nav
+  // let nav = document.querySelector('nav > ul > a:nth-child(2) li');
+  // let span = document.createElement('span');
+  // nav.appendChild(span);
+  // span.innerHTML = ' ' + '(' + totalQuantity + ')';
+  // console.log(span);
 };
 
 // /****************************************/
-
+import { quantityAffichagePanier } from './modules.js';
+quantityAffichagePanier();
 /****************************************/
 
 //Messages d'erreur des input
@@ -290,11 +307,13 @@ function emailFunction() {
 }
 
 // /****************************************/
+// /****************************************/
 //Récupération values du formulaire
 const getDataForm = () => {
   let btnCommander = document.querySelector('#order');
 
-  btnCommander.addEventListener('click', () => {
+  btnCommander.addEventListener('click', (e) => {
+    e.preventDefault();
     let coordonnéesForm = {
       prenom: firstName.value,
       nom: lastName.value,
@@ -302,13 +321,33 @@ const getDataForm = () => {
       ville: city.value,
       email: email.value,
     };
-    // addDataForm(coordonnéesForm);
-    localStorage.setItem('coordonnées', JSON.stringify(coordonnéesForm));
+
+    let loaCoordonnées = () => {
+      let dataCoordonnées = localStorage.getItem('coordonnées');
+      if (dataCoordonnées == null) {
+        return [];
+      } else {
+        return JSON.parse(dataCoordonnées);
+      }
+    };
+    let dataCoordonnées = loaCoordonnées();
+    console.log(dataCoordonnées);
+
+    if (dataProduct == 0) {
+      alert("Il n'y a pas d'article dans le panier");
+      window.location.href = 'index.html';
+    } else if (dataProduct && dataCoordonnées == 0) {
+      alert('Veuillez remplir le formulaire');
+    } else {
+      localStorage.setItem('coordonnées', JSON.stringify(coordonnéesForm));
+      alert('Super, vous avez commandé');
+    }
 
     // window.location.href = 'confirmation.html';
   });
 };
 // /****************************************/
+
 // /****************************************/
 //Pour garder les coordonnées des visiteurs
 // const testtt = () => {
