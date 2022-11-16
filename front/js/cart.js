@@ -13,13 +13,13 @@ const mainFunction = () => {
     changeQuantity();
     quantityAndTotalPrice();
 
-    getDataForm();
+    // firstNameFunction();
+    // lastNameFunction();
+    // addressFunction();
+    // cityFunction();
+    // emailFunction();
 
-    firstNameFunction();
-    lastNameFunction();
-    addressFunction();
-    cityFunction();
-    emailFunction();
+    getDataForm();
   }
 };
 import { loadcart } from './modules.js';
@@ -220,7 +220,6 @@ let quantityAndTotalPrice = () => {
   );
   Quantity.innerText = totalQuantity;
   PrixTotal.innerText = totalPrice;
-  console.log(totalQuantity);
 
   //Affiche la quantité sur le panier du menu nav
   // let nav = document.querySelector('nav > ul > a:nth-child(2) li');
@@ -236,20 +235,24 @@ quantityAffichagePanier();
 /****************************************/
 
 //Messages d'erreur des input
+// let check = true;
+// function firstNameFunction() {
+//   let firstName = document.querySelector('#firstName');
+//   firstName.addEventListener('input', function (e) {
+//     e.preventDefault();
+//     let firstNameErrorMsg = document.querySelector('#firstNameErrorMsg');
+//     let firstNameRegEx = new RegExp('^[a-zA-Z]+$', 'g');
+//     let testFirstName = firstNameRegEx.test(firstName.value);
+//     if (!testFirstName) {
+//       check === false;
+//       firstNameErrorMsg.innerHTML = 'Le prénom est invalide';
+//     } else {
+//       firstNameErrorMsg.innerHTML = '';
+//     }
+//   });
+// }
+// firstNameFunction();
 
-function firstNameFunction() {
-  let firstName = document.querySelector('#firstName');
-  firstName.addEventListener('input', function () {
-    let firstNameErrorMsg = document.querySelector('#firstNameErrorMsg');
-    let firstNameRegEx = new RegExp('^[a-zA-Z]+$', 'g');
-    let testFirstName = firstNameRegEx.test(firstName.value);
-    if (!testFirstName) {
-      firstNameErrorMsg.innerHTML = 'Le prénom est invalide';
-    } else {
-      firstNameErrorMsg.innerHTML = '';
-    }
-  });
-}
 function lastNameFunction() {
   let lastName = document.querySelector('#lastName');
   lastName.addEventListener('input', function () {
@@ -263,8 +266,10 @@ function lastNameFunction() {
     }
   });
 }
+lastNameFunction();
 function addressFunction() {
   let address = document.querySelector('#address');
+
   address.addEventListener('input', function () {
     let addressErrorMsg = document.querySelector('#addressErrorMsg');
     let addressRegEx = new RegExp('^[a-zA-Z0-9-]+$', 'g');
@@ -278,6 +283,7 @@ function addressFunction() {
 }
 function cityFunction() {
   let city = document.querySelector('#city');
+
   city.addEventListener('input', function () {
     let cityErrorMsg = document.querySelector('#cityErrorMsg');
     let cityNameRegEx = new RegExp('^[a-zA-Z-]+$', 'g');
@@ -291,6 +297,7 @@ function cityFunction() {
 }
 function emailFunction() {
   let email = document.querySelector('#email');
+
   email.addEventListener('input', function () {
     let emailErrorMsg = document.querySelector('#emailErrorMsg');
     let emailRegEx = new RegExp(
@@ -307,6 +314,50 @@ function emailFunction() {
 }
 
 // /****************************************/
+
+function errormessage(coordonnéesForm) {
+  let formIsValid = true;
+
+  let divtest = document.querySelectorAll('.cart__order__form__question p');
+  for (let testt of divtest) {
+    testt.innerHTML = '';
+  }
+
+  let firstNameErrorMsg = document.querySelector('#firstNameErrorMsg');
+  let lastNameErrorMsg = document.querySelector('#lastNameErrorMsg');
+  let addressErrorMsg = document.querySelector('#addressErrorMsg');
+  let cityErrorMsg = document.querySelector('#cityErrorMsg');
+  let emailErrorMsg = document.querySelector('#emailErrorMsg');
+
+  if (!/^[a-zA-Z-]{3,20}$/.test(coordonnéesForm.prenom)) {
+    formIsValid = false;
+    firstNameErrorMsg.innerHTML = 'Le prénom est invalide';
+  }
+  if (!/^[a-zA-Z-]{3,20}$/.test(coordonnéesForm.nom)) {
+    formIsValid = false;
+    lastNameErrorMsg.innerHTML = 'Le nom est invalide';
+  }
+  if (!/^[a-zA-Z-0-9]{3,50}$/.test(coordonnéesForm.adresse)) {
+    // addressErrorMsg.innerHTML = '';
+    formIsValid = false;
+    addressErrorMsg.innerHTML = "L'adresse est invalide";
+  }
+  if (!/^[a-zA-Z-0-9]{3,50}$/.test(coordonnéesForm.ville)) {
+    // cityErrorMsg.innerHTML = '';
+    formIsValid = false;
+    cityErrorMsg.innerHTML = 'La ville est invalide';
+  }
+  if (
+    !/^^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$/.test(
+      coordonnéesForm.email
+    )
+  ) {
+    // emailErrorMsg.innerHTML = '';
+    formIsValid = false;
+    emailErrorMsg.innerHTML = "L'email est invalide";
+  }
+  return formIsValid;
+}
 // /****************************************/
 //Récupération values du formulaire
 const getDataForm = () => {
@@ -321,28 +372,42 @@ const getDataForm = () => {
       ville: city.value,
       email: email.value,
     };
+    // localStorage.setItem('coordonnées', JSON.stringify(coordonnéesForm));
+    // let loadCoordonnées = () => {
+    //   let dataCoordonnées = localStorage.getItem('coordonnées');
+    //   if (dataCoordonnées == null) {
+    //     return [];
+    //   } else {
+    //     return JSON.parse(dataCoordonnées);
+    //   }
+    // };
+    // let dataCoordonnées = loadCoordonnées();
+    // console.log(dataCoordonnées);
 
-    let loaCoordonnées = () => {
-      let dataCoordonnées = localStorage.getItem('coordonnées');
-      if (dataCoordonnées == null) {
-        return [];
-      } else {
-        return JSON.parse(dataCoordonnées);
-      }
-    };
-    let dataCoordonnées = loaCoordonnées();
-    console.log(dataCoordonnées);
-
-    if (dataProduct == 0) {
-      alert("Il n'y a pas d'article dans le panier");
-      window.location.href = 'index.html';
-    } else if (dataProduct && dataCoordonnées == 0) {
-      alert('Veuillez remplir le formulaire');
-    } else {
-      localStorage.setItem('coordonnées', JSON.stringify(coordonnéesForm));
+    //----------
+    errormessage(coordonnéesForm);
+    let testerrormessage = errormessage(coordonnéesForm);
+    console.log(testerrormessage);
+    //----------
+    if (errormessage(coordonnéesForm) === true) {
       alert('Super, vous avez commandé');
+      localStorage.setItem('coordonnées', JSON.stringify(coordonnéesForm));
+      window.location.href = 'confirmation.html';
+    } else {
+      alert('Veuillez bien remplir le formulaire');
     }
 
+    //********************** */
+
+    // if (dataProduct == 0) {
+    //   alert("Il n'y a pas d'article dans le panier");
+    //   window.location.href = 'index.html';
+    // } else if (!testerrormessage) {
+    //   alert('Veuillez remplir le formulaire');
+    // } else {
+    //   alert('Super, vous avez commandé');
+    //   localStorage.setItem('coordonnées', JSON.stringify(coordonnéesForm));
+    // }
     // window.location.href = 'confirmation.html';
   });
 };

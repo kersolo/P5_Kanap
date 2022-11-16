@@ -1,3 +1,5 @@
+import { quantityAffichagePanier } from './modules.js';
+
 const mainFunction = async () => {
   const productsData = await fetchCall();
   for (const product of productsData) {
@@ -36,23 +38,5 @@ const createCards = (product) => {
   p.innerText = product.description;
 };
 
-import { loadcart } from './modules.js';
-let dataProduct = loadcart();
-
-import { quantityAffichagePanier } from './modules.js';
-quantityAffichagePanier();
-// let quantityAffichagePanier = () => {
-//   const totalQuantity = dataProduct.reduce(
-//     (previousValue, currentValue) =>
-//       previousValue + parseInt(currentValue.nombreDeProduit),
-//     0
-//   );
-//   let nav = document.querySelector('nav > ul > a:nth-child(2) li');
-//   let span = document.createElement('span');
-//   nav.appendChild(span);
-//   span.innerHTML = ' ' + '(' + totalQuantity + ')';
-//   console.log(span);
-// };
-// quantityAffichagePanier();
-
 mainFunction();
+quantityAffichagePanier();
