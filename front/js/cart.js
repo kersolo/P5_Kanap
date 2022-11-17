@@ -114,19 +114,19 @@ const deleteItemProduct = () => {
 
   for (let i = 0; i < dataProduct.length; i++) {
     deleteButton[i].addEventListener('click', () => {
-      let supprimerId = dataProduct[i].idDuProduit;
-      let supprimercolor = dataProduct[i].couleurDuProduit;
+      if (confirm('Souhaitez-vous supprimer cet article ?')) {
+        let supprimerId = dataProduct[i].idDuProduit;
+        let supprimercolor = dataProduct[i].couleurDuProduit;
 
-      dataProduct = dataProduct.filter(
-        (el) =>
-          el.idDuProduit != supprimerId || el.couleurDuProduit != supprimercolor
-      );
+        dataProduct = dataProduct.filter(
+          (el) =>
+            el.idDuProduit != supprimerId ||
+            el.couleurDuProduit != supprimercolor
+        );
 
-      localStorage.setItem('produits', JSON.stringify(dataProduct));
-
-      alert('Cette élement a bien été supprimer du panier');
-
-      window.location.href = 'cart.html';
+        localStorage.setItem('produits', JSON.stringify(dataProduct));
+        window.location.href = 'cart.html';
+      }
     });
   }
 };

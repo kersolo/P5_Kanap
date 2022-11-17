@@ -111,6 +111,10 @@ const LocalStorage = (item) => {
   });
 };
 
+//-------------------
+
+//-------------------
+
 //Popup de confirmation
 // const popupConfirmation = (itemProductss) => {
 //   if (
