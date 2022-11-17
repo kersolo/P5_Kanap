@@ -20,5 +20,8 @@ export let quantityAffichagePanier = () => {
   let nav = document.querySelector('nav > ul > a:nth-child(2) li');
   let span = document.createElement('span');
   nav.appendChild(span);
-  span.innerHTML = ' ' + '(' + totalQuantity + ')';
+  if (totalQuantity) {
+    span.innerHTML = ' ' + '(' + totalQuantity + ')';
+    span.style.color = 'grey';
+  }
 };

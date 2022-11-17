@@ -101,7 +101,7 @@ const LocalStorage = (item) => {
       addData(itemProductss);
       if (
         window.confirm(`${itemProductss.nomDuProduit} a bien été ajouté au panier
-    Souhaitez-vous rejoindre le panier ?`)
+      Souhaitez-vous rejoindre le panier ?`)
       ) {
         window.location.href = 'cart.html';
       } else {
