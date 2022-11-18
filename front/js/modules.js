@@ -9,11 +9,11 @@ export let loadcart = () => {
 };
 let dataProduct = loadcart();
 
-//Fonction permettant affichage prix après panier dans menu nav
+// Fonction permettant affichage prix après panier dans menu nav
 export let quantityAffichagePanier = () => {
   const totalQuantity = dataProduct.reduce(
     (previousValue, currentValue) =>
-      previousValue + parseInt(currentValue.nombreDeProduit),
+      previousValue + parseInt(currentValue.quantityProduct),
     0
   );
 

@@ -1,3 +1,8 @@
+import { loadcart } from './modules.js';
+let dataProduct = loadcart();
+
+/****************************************/
+
 const mainFunction = () => {
   let testform = document.querySelector('.cart__order');
   let formTest = document.querySelector('.cart__order__form');
@@ -15,9 +20,7 @@ const mainFunction = () => {
     getDataForm();
   }
 };
-/****************************************/
-import { loadcart } from './modules.js';
-let dataProduct = loadcart();
+
 /****************************************/
 const createHtml = () => {
   for (let data of dataProduct) {
@@ -26,8 +29,7 @@ const createHtml = () => {
     //***Création constantes***//
     let article_cart__item = document.createElement('article');
 
-    // article_cart__item.id = `${data.idDuProduit}`;
-    article_cart__item.id = data.idDuProduit;
+    article_cart__item.id = data.idProduct;
 
     let div_cart__item__img = document.createElement('div');
     let img = document.createElement('img');
@@ -46,7 +48,7 @@ const createHtml = () => {
     input.name = 'itemQuantity';
     input.min = 1;
     input.max = 100;
-    input.value = data.nombreDeProduit;
+    input.value = data.quantityProduct;
     let div_cart__item__content__settings__delete =
       document.createElement('div');
     let p_deleteItem = document.createElement('p');
@@ -95,12 +97,12 @@ const createHtml = () => {
 
     // console.log(section_cart__items);
 
-    img.src = data.imageDuProduit;
-    h2_name_description.innerText = data.nomDuProduit;
-    p_color_description.innerText = data.couleurDuProduit;
-    p_price_description.innerText = data.prixDuProduit + ' €';
+    img.src = data.imgProduct;
+    h2_name_description.innerText = data.nameProduct;
+    p_color_description.innerText = data.colorProduct;
+    p_price_description.innerText = data.priceProduct + ' €';
     p_quantity.innerText = 'Qté : ';
-    // input.innerText = data.nombreDeProduit;
+
     p_deleteItem.innerText = 'Supprimer';
 
     /****************************************/
@@ -115,13 +117,12 @@ const deleteItemProduct = () => {
   for (let i = 0; i < dataProduct.length; i++) {
     deleteButton[i].addEventListener('click', () => {
       if (confirm('Souhaitez-vous supprimer cet article ?')) {
-        let supprimerId = dataProduct[i].idDuProduit;
-        let supprimercolor = dataProduct[i].couleurDuProduit;
+        let supprimerId = dataProduct[i].idProduct;
+        let supprimercolor = dataProduct[i].colorProduct;
 
         dataProduct = dataProduct.filter(
           (el) =>
-            el.idDuProduit != supprimerId ||
-            el.couleurDuProduit != supprimercolor
+            el.idProduct != supprimerId || el.colorProduct != supprimercolor
         );
 
         localStorage.setItem('produits', JSON.stringify(dataProduct));
@@ -143,7 +144,7 @@ const changeQuantity = () => {
   );
   for (let m = 0; m < inputs.length; m++) {
     inputs[m].addEventListener('input', () => {
-      dataProduct[m].nombreDeProduit = inputs[m].value;
+      dataProduct[m].quantityProduct = inputs[m].value;
 
       localStorage.setItem('produits', JSON.stringify(dataProduct));
 
@@ -161,14 +162,14 @@ let PrixTotal = document.querySelector('#totalPrice');
 let quantityAndTotalPrice = () => {
   const totalQuantity = dataProduct.reduce(
     (previousValue, currentValue) =>
-      previousValue + parseInt(currentValue.nombreDeProduit),
+      previousValue + parseInt(currentValue.quantityProduct),
     0
   );
 
   const totalPrice = dataProduct.reduce(
     (previousValue, currentValue) =>
       previousValue +
-      parseInt(currentValue.nombreDeProduit * currentValue.prixDuProduit),
+      parseInt(currentValue.quantityProduct * currentValue.priceProduct),
     0
   );
   Quantity.innerText = totalQuantity;
@@ -178,86 +179,6 @@ let quantityAndTotalPrice = () => {
 // /****************************************/
 import { quantityAffichagePanier } from './modules.js';
 quantityAffichagePanier();
-/****************************************/
-
-//Messages d'erreur des input
-// let check = true;
-// function firstNameFunction() {
-//   let firstName = document.querySelector('#firstName');
-//   firstName.addEventListener('input', function (e) {
-//     e.preventDefault();
-//     let firstNameErrorMsg = document.querySelector('#firstNameErrorMsg');
-//     let firstNameRegEx = new RegExp('^[a-zA-Z]+$', 'g');
-//     let testFirstName = firstNameRegEx.test(firstName.value);
-//     if (!testFirstName) {
-//       check === false;
-//       firstNameErrorMsg.innerHTML = 'Le prénom est invalide';
-//     } else {
-//       firstNameErrorMsg.innerHTML = '';
-//     }
-//   });
-// }
-// firstNameFunction();
-
-// function lastNameFunction() {
-//   let lastName = document.querySelector('#lastName');
-//   lastName.addEventListener('input', function () {
-//     let lastNameErrorMsg = document.querySelector('#lastNameErrorMsg');
-//     let lastNameRegEx = new RegExp('^[a-zA-Z]+$', 'g');
-//     let testLastName = lastNameRegEx.test(lastName.value);
-//     if (!testLastName) {
-//       lastNameErrorMsg.innerHTML = 'Le nom est invalide';
-//     } else {
-//       lastNameErrorMsg.innerHTML = '';
-//     }
-//   });
-// }
-// lastNameFunction();
-// function addressFunction() {
-//   let address = document.querySelector('#address');
-
-//   address.addEventListener('input', function () {
-//     let addressErrorMsg = document.querySelector('#addressErrorMsg');
-//     let addressRegEx = new RegExp('^[a-zA-Z0-9-]+$', 'g');
-//     let testAddress = addressRegEx.test(address.value);
-//     if (!testAddress) {
-//       addressErrorMsg.innerHTML = "L'adresse est invalide";
-//     } else {
-//       addressErrorMsg.innerHTML = '';
-//     }
-//   });
-// }
-// function cityFunction() {
-//   let city = document.querySelector('#city');
-
-//   city.addEventListener('input', function () {
-//     let cityErrorMsg = document.querySelector('#cityErrorMsg');
-//     let cityNameRegEx = new RegExp('^[a-zA-Z-]+$', 'g');
-//     let testCity = cityNameRegEx.test(city.value);
-//     if (!testCity) {
-//       cityErrorMsg.innerHTML = 'La ville est invalide';
-//     } else {
-//       cityErrorMsg.innerHTML = '';
-//     }
-//   });
-// }
-// function emailFunction() {
-//   let email = document.querySelector('#email');
-
-//   email.addEventListener('input', function () {
-//     let emailErrorMsg = document.querySelector('#emailErrorMsg');
-//     let emailRegEx = new RegExp(
-//       '^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$',
-//       'g'
-//     );
-//     let testEmail = emailRegEx.test(email.value);
-//     if (!testEmail) {
-//       emailErrorMsg.innerHTML = "L'e-mail est invalide";
-//     } else {
-//       emailErrorMsg.innerHTML = '';
-//     }
-//   });
-// }
 
 // /****************************************/
 
@@ -304,60 +225,15 @@ function errormessage(contact) {
   }
   return formIsValid;
 }
-// /****************************************/
-//Récupération values du formulaire
-// const getDataForm = () => {
-//   let btnCommander = document.querySelector('#order');
-
-//   btnCommander.addEventListener('click', (e) => {
-//     e.preventDefault();
-//     let coordonnéesForm = {
-//       prenom: firstName.value,
-//       nom: lastName.value,
-//       adresse: address.value,
-//       ville: city.value,
-//       email: email.value,
-//     };
-//     console.log(coordonnéesForm);
-//     //----------
-//     errormessage(coordonnéesForm);
-//     //----------
-//     if (errormessage(coordonnéesForm) === true) {
-//       alert('Super, vous avez commandé');
-//       localStorage.setItem('coordonnées', JSON.stringify(coordonnéesForm));
-//       // window.location.href = 'confirmation.html';
-//     } else {
-//       alert('Veuillez bien remplir le formulaire');
-//     }
-//   });
-// };
 
 // /****************************************/
 
-// /****************************************/
-// let loadcoordonnees = () => {
-//   let datacoordonnees = localStorage.getItem('coordonnées');
-//   if (datacoordonnees) {
-//     return JSON.parse(datacoordonnees);
-//   }
-// };
-// let datacoordonnees = loadcoordonnees();
-
-// /****************************************/
 const getDataForm = () => {
   let btnCommander = document.querySelector('#order');
   btnCommander.addEventListener('click', (e) => {
     e.preventDefault();
     //----------
-    // let dataForm = {
-    //   contact: {
-    //     firstName: firstName.value,
-    //     lastName: lastName.value,
-    //     address: address.value,
-    //     city: city.value,
-    //     email: email.value,
-    //   },
-    // };
+
     let contact = {
       firstName: firstName.value,
       lastName: lastName.value,
@@ -372,20 +248,10 @@ const getDataForm = () => {
 
     let products = [];
     for (let idProduct of dataProduct) {
-      products.push(idProduct.idDuProduit);
+      products.push(idProduct.idProduct);
     }
     console.log(products);
 
-    //----------
-
-    //----------
-    // fetch('http://localhost:3000/api/products/order', {
-    //   method: 'POST',
-    //   body: JSON.stringify({ coordonnéesForm, productsId }),
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    // });
     //----------
     errormessage(contact);
     //----------
@@ -425,53 +291,6 @@ const getDataForm = () => {
     }
   });
 };
-
-// /****************************************/
-
-// /****************************************/
-
-// /****************************************/
-
-//Pour garder les coordonnées des visiteurs
-// const testtt = () => {
-//   const testGarderCordonnées = localStorage.getItem('coordonnées');
-
-//   if (testGarderCordonnées != undefined) {
-//     const testGarderCordonnéesParse = JSON.parse(testGarderCordonnées);
-
-//     let firstName = document
-//       .querySelector('#firstName')
-//       .setAttribute('value', testGarderCordonnéesParse.prenom);
-//     let lastName = document
-//       .querySelector('#lastName')
-//       .setAttribute('value', testGarderCordonnéesParse.nom);
-//     let address = document
-//       .querySelector('#address')
-//       .setAttribute('value', testGarderCordonnéesParse.adresse);
-//     let city = document
-//       .querySelector('#city')
-//       .setAttribute('value', testGarderCordonnéesParse.ville);
-//     let email = document
-//       .querySelector('#email')
-//       .setAttribute('value', testGarderCordonnéesParse.email);
-
-//Autre méthode (a améliorer)
-// function suptest(tup) {
-//   document
-//     .querySelector(`#${tup}`)
-
-//     .setAttribute('value', testGarderCordonnéesParse[tup]);
-//   console.log(document.querySelector(`#${tup}`));
-// }
-
-// suptest('firstName');
-// suptest('lastName');
-// suptest('address');
-// suptest('city');
-// suptest('email');
-//Autre méthode (a améliorer)
-//   }
-// };
 
 // /****************************************/
 
