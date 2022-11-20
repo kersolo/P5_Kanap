@@ -182,50 +182,111 @@ quantityAffichagePanier();
 
 // /****************************************/
 
-function errormessage(contact) {
+// function errormessage(contact) {
+//   let formIsValid = true;
+
+//   let divtest = document.querySelectorAll('.cart__order__form__question p');
+//   for (let testt of divtest) {
+//     testt.innerHTML = '';
+//   }
+
+//   let firstNameErrorMsg = document.querySelector('#firstNameErrorMsg');
+//   let lastNameErrorMsg = document.querySelector('#lastNameErrorMsg');
+//   let addressErrorMsg = document.querySelector('#addressErrorMsg');
+//   let cityErrorMsg = document.querySelector('#cityErrorMsg');
+//   let emailErrorMsg = document.querySelector('#emailErrorMsg');
+
+//   if (!/^[a-zA-Z-]{3,20}$/.test(contact.firstName)) {
+//     formIsValid = false;
+//     firstNameErrorMsg.innerHTML = 'Le prénom est invalide';
+//   }
+//   if (!/^[a-zA-Z-]{3,20}$/.test(contact.lastName)) {
+//     formIsValid = false;
+//     lastNameErrorMsg.innerHTML = 'Le nom est invalide';
+//   }
+//   if (!/^[a-zA-Z-0-9]{3,50}$/.test(contact.address)) {
+//     // addressErrorMsg.innerHTML = '';
+//     formIsValid = false;
+//     addressErrorMsg.innerHTML = "L'adresse est invalide";
+//   }
+//   if (!/^[a-zA-Z-0-9]{3,50}$/.test(contact.city)) {
+//     // cityErrorMsg.innerHTML = '';
+//     formIsValid = false;
+//     cityErrorMsg.innerHTML = 'La ville est invalide';
+//   }
+//   if (
+//     !/^^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$/.test(
+//       contact.email
+//     )
+//   ) {
+//     // emailErrorMsg.innerHTML = '';
+//     formIsValid = false;
+//     emailErrorMsg.innerHTML = "L'email est invalide";
+//   }
+//   return formIsValid;
+// }
+
+// /****************************************/
+let firstNameTest = document.querySelector('#firstName');
+let lastNameTest = document.querySelector('#lastName');
+let addressTest = document.querySelector('#address');
+let cityTest = document.querySelector('#city');
+let emailTest = document.querySelector('#email');
+let firstNameErrorMsg = document.querySelector('#firstNameErrorMsg');
+let lastNameErrorMsg = document.querySelector('#lastNameErrorMsg');
+let addressErrorMsg = document.querySelector('#addressErrorMsg');
+let cityErrorMsg = document.querySelector('#cityErrorMsg');
+let emailErrorMsg = document.querySelector('#emailErrorMsg');
+// /****************************************/
+function errormessage() {
   let formIsValid = true;
 
-  let divtest = document.querySelectorAll('.cart__order__form__question p');
-  for (let testt of divtest) {
-    testt.innerHTML = '';
+  let validMessage = document.querySelectorAll(
+    '.cart__order__form__question p'
+  );
+  for (let message of validMessage) {
+    message.innerHTML = '';
   }
 
-  let firstNameErrorMsg = document.querySelector('#firstNameErrorMsg');
-  let lastNameErrorMsg = document.querySelector('#lastNameErrorMsg');
-  let addressErrorMsg = document.querySelector('#addressErrorMsg');
-  let cityErrorMsg = document.querySelector('#cityErrorMsg');
-  let emailErrorMsg = document.querySelector('#emailErrorMsg');
-
-  if (!/^[a-zA-Z-]{3,20}$/.test(contact.firstName)) {
+  if (!/^[a-zA-Z-]{3,20}$/.test(firstNameTest.value)) {
     formIsValid = false;
     firstNameErrorMsg.innerHTML = 'Le prénom est invalide';
   }
-  if (!/^[a-zA-Z-]{3,20}$/.test(contact.lastName)) {
+  if (!/^[a-zA-Z-]{3,20}$/.test(lastNameTest.value)) {
     formIsValid = false;
     lastNameErrorMsg.innerHTML = 'Le nom est invalide';
   }
-  if (!/^[a-zA-Z-0-9]{3,50}$/.test(contact.address)) {
-    // addressErrorMsg.innerHTML = '';
+
+  if (!/^[a-zA-Z-0-9]{3,50}$/.test(addressTest.value)) {
     formIsValid = false;
     addressErrorMsg.innerHTML = "L'adresse est invalide";
   }
-  if (!/^[a-zA-Z-0-9]{3,50}$/.test(contact.city)) {
+
+  if (!/^[a-zA-Z-0-9]{3,50}$/.test(cityTest.value)) {
     // cityErrorMsg.innerHTML = '';
     formIsValid = false;
     cityErrorMsg.innerHTML = 'La ville est invalide';
   }
+
   if (
     !/^^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$/.test(
-      contact.email
+      emailTest.value
     )
   ) {
     // emailErrorMsg.innerHTML = '';
     formIsValid = false;
     emailErrorMsg.innerHTML = "L'email est invalide";
   }
+
   return formIsValid;
 }
+// /****************************************/
+let inputTest = document.querySelectorAll('.cart__order__form__question input');
 
+for (let inputs of inputTest) {
+  inputs.addEventListener('input', errormessage);
+}
+// /****************************************/
 // /****************************************/
 
 const getDataForm = () => {
@@ -253,10 +314,10 @@ const getDataForm = () => {
     console.log(products);
 
     //----------
-    errormessage(contact);
+    // errormessage();
     //----------
 
-    if (dataProduct >= [1] && errormessage(contact)) {
+    if (dataProduct >= [1] && errormessage()) {
       //----------
 
       //----------
@@ -277,16 +338,16 @@ const getDataForm = () => {
         })
         .then((data) => {
           console.log(data);
-          window.location.href = './confirmation.html?orderId=' + data.orderId;
+          // window.location.href = './confirmation.html?orderId=' + data.orderId;
         });
     }
-    if (dataProduct == 0 && !errormessage(contact)) {
+    if (dataProduct == 0 && !errormessage()) {
       alert('pas de produit et form non rempli');
     }
-    if (dataProduct == 0 && errormessage(contact)) {
+    if (dataProduct == 0 && errormessage()) {
       alert('manque produit');
     }
-    if (dataProduct >= [1] && !errormessage(contact)) {
+    if (dataProduct >= [1] && !errormessage()) {
       alert('bien remplir formulaire');
     }
   });
