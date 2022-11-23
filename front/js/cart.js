@@ -238,6 +238,7 @@ let addressErrorMsg = document.querySelector('#addressErrorMsg');
 let cityErrorMsg = document.querySelector('#cityErrorMsg');
 let emailErrorMsg = document.querySelector('#emailErrorMsg');
 // /****************************************/
+
 function errormessage() {
   let formIsValid = true;
 
@@ -281,12 +282,14 @@ function errormessage() {
   return formIsValid;
 }
 // /****************************************/
+//Pour la séléction de chaque input pour msg erreur
 let inputTest = document.querySelectorAll('.cart__order__form__question input');
 
 for (let inputs of inputTest) {
   inputs.addEventListener('input', errormessage);
 }
 // /****************************************/
+
 // /****************************************/
 
 const getDataForm = () => {
@@ -321,7 +324,7 @@ const getDataForm = () => {
       //----------
 
       //----------
-      alert('top');
+
       localStorage.setItem('contact', JSON.stringify(contact));
       localStorage.setItem('products', JSON.stringify(products));
       // localStorage.removeItem('produits');
@@ -338,8 +341,9 @@ const getDataForm = () => {
         })
         .then((data) => {
           console.log(data);
-          // window.location.href = './confirmation.html?orderId=' + data.orderId;
-        });
+          window.location.href = './confirmation.html?orderId=' + data.orderId;
+        })
+        .catch((error) => alert("Erreur lors de l'envoi du formulaire"));
     }
     if (dataProduct == 0 && !errormessage()) {
       alert('pas de produit et form non rempli');

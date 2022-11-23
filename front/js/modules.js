@@ -1,4 +1,4 @@
-//Renvoie les valeurs dans le localStorage
+//Récupère les valeurs du localStorage
 export let loadcart = () => {
   let dataProduct = localStorage.getItem('produits');
   if (dataProduct == null) {
@@ -9,7 +9,7 @@ export let loadcart = () => {
 };
 let dataProduct = loadcart();
 
-// Fonction permettant affichage prix après panier dans menu nav
+// Fonction permettant affichage quantité après panier dans menu nav
 export let quantityAffichagePanier = () => {
   const totalQuantity = dataProduct.reduce(
     (previousValue, currentValue) =>

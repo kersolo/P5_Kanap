@@ -1,8 +1,8 @@
+////import de la fonction permettant la récupération des valeurs du localStorage
 import { loadcart } from './modules.js';
 import { quantityAffichagePanier } from './modules.js';
 
 //Fonction principale
-
 const main = async () => {
   const item = await getItem(getItemId);
   createKanap(item);
@@ -17,12 +17,16 @@ const getItemId = new URL(location.href).searchParams.get('id');
 /****************************************/
 //Récupère les données du produit
 const getItem = async (getItemId) => {
-  const response = await fetch(
-    'http://localhost:3000/api/products/' + getItemId
-  );
-  const products = await response.json();
+  try {
+    const response = await fetch(
+      'http://localhost:3000/api/products/' + getItemId
+    );
+    const products = await response.json();
 
-  return products;
+    return products;
+  } catch (error) {
+    alert('Erreur de chargement du produit');
+  }
 };
 
 /****************************************/
@@ -92,8 +96,11 @@ const LocalStorage = (item) => {
       alert('Veuillez choisir la couleur et la quantité souhaité');
     } else if (!itemProductss.colorProduct) {
       alert('Veuillez choisir la couleur souhaitée');
-    } else if (!itemProductss.quantityProduct) {
-      alert('Veuillez choisir la quantité souhaitée');
+    } else if (
+      !itemProductss.quantityProduct ||
+      itemProductss.quantityProduct > 100
+    ) {
+      alert('la quantité doit être comprise entre 1 et 100');
     } else {
       addData(itemProductss);
       if (

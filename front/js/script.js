@@ -1,5 +1,7 @@
+//import de la fonction permettant l'affichage de la quantité du panier dans menu nav
 import { quantityAffichagePanier } from './modules.js';
 
+//Fonction principale asynchrone revecevant une promesse de la fonction fetchcall et va créer une boucle pour affichage de tous les produits via la fonction createcards
 const mainFunction = async () => {
   const productsData = await fetchCall();
   for (const product of productsData) {
@@ -7,14 +9,18 @@ const mainFunction = async () => {
   }
 };
 
+//Fonction appel de l'API
 const fetchCall = async () => {
-  const response = await fetch('http://localhost:3000/api/products');
-  const products = await response.json();
-
-  console.log(products);
-  return products;
+  try {
+    const response = await fetch('http://localhost:3000/api/products');
+    const products = await response.json();
+    return products;
+  } catch (error) {
+    alert('Erreur de chargement des produits');
+  }
 };
 
+//Création des cards pour affichage produits
 const createCards = (product) => {
   let items = document.querySelector('.items');
   let a = document.createElement('a');
@@ -38,5 +44,7 @@ const createCards = (product) => {
   p.innerText = product.description;
 };
 
+//Appel de la fonction principale
 mainFunction();
+//Appel de la fonction importée
 quantityAffichagePanier();
