@@ -1,4 +1,5 @@
 //Récupère les valeurs du localStorage
+
 export let loadcart = () => {
   let dataProduct = localStorage.getItem('produits');
   if (dataProduct == null) {
@@ -7,8 +8,33 @@ export let loadcart = () => {
     return JSON.parse(dataProduct);
   }
 };
-let dataProduct = loadcart();
 
+/****************************************/
+
+/****************************************/
+// let priceProduct = fetch('http://localhost:3000/api/products/')
+//   .then((res) => res.json())
+//   .then((data) => {
+//     for (let n = 0; n < dataProduct.length; n++) {
+//       return data[n].price;
+//     }
+//   });
+// console.log(priceProduct);
+/****************************************/
+
+/****************************************/
+
+// fetch('http://localhost:3000/api/products/')
+//   .then((res) => res.json())
+//   .then((data) => {
+//     for (let n = 0; n < data.length; n++) {
+//       console.log(data[n].price);
+//       return data[n].price;
+//     }
+//   });
+/****************************************/
+
+/****************************************/
 // Fonction permettant affichage quantité après panier dans menu nav
 export let quantityAffichagePanier = () => {
   const totalQuantity = dataProduct.reduce(
@@ -25,3 +51,30 @@ export let quantityAffichagePanier = () => {
     span.style.color = 'grey';
   }
 };
+
+let dataProduct = loadcart();
+// let priceProduct = fetch('http://localhost:3000/api/products/')
+//   .then((res) => res.json())
+//   .then((data) => {
+//     for (let datatest of data) {
+//       // console.log(datatest.price);
+//     }
+//   });
+// if (dataProduct != 0) {
+//   console.log('test');
+//   console.log(priceProduct);
+//   priceProduct;
+// } else {
+//   console.log('mince');
+// }
+
+let testprixapi = () => {
+  fetch('http://localhost:3000/api/products/' + dataProduct)
+    .then((res) => res.json())
+    .then((data) => {
+      for (let datatest of data) {
+        console.log(datatest.price);
+      }
+    });
+};
+testprixapi;

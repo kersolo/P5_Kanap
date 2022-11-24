@@ -12,8 +12,9 @@ const mainFunction = async () => {
 //Fonction appel de l'API
 const fetchCall = async () => {
   try {
-    const response = await fetch('http://localhost:3000/api/products');
+    const response = await fetch('http://localhost:3000/api/products/');
     const products = await response.json();
+    console.log(products);
     return products;
   } catch (error) {
     alert('Erreur de chargement des produits');
@@ -40,6 +41,7 @@ const createCards = (product) => {
   article.appendChild(p);
 
   img.src = product.imageUrl;
+  img.alt = 'blabla';
   h3.innerText = product.name;
   p.innerText = product.description;
 };

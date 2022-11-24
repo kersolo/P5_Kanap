@@ -12,7 +12,6 @@ const main = async () => {
 
 /****************************************/
 //Récupère l'id du produit
-const getItemId = new URL(location.href).searchParams.get('id');
 
 /****************************************/
 //Récupère les données du produit
@@ -57,10 +56,12 @@ const createKanap = (item) => {
 };
 
 /****************************************/
+/****************************************/
 
 //Ajoute les valeurs dans le localStorage
 const addData = (product) => {
   let dataProduct = loadcart();
+
   let foundProduct = dataProduct.find(
     (p) =>
       p.idProduct == product.idProduct && p.colorProduct == product.colorProduct
@@ -88,7 +89,7 @@ const LocalStorage = (item) => {
       imgProduct: item.imageUrl,
       nameProduct: item.name,
       colorProduct: choiceColor,
-      priceProduct: item.price,
+      // priceProduct: item.price,
       quantityProduct: parseInt(choiceQuantity),
     };
 
@@ -116,5 +117,6 @@ const LocalStorage = (item) => {
 };
 
 /****************************************/
+const getItemId = new URL(location.href).searchParams.get('id');
 
 main();
