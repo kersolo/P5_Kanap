@@ -1,9 +1,9 @@
 import { loadcart } from './modules.js';
 
-// let dataProduct = loadcart();
+let dataProduct = loadcart();
 
-let dataProduct = JSON.parse(localStorage.getItem('produits'));
-console.log(dataProduct);
+// let dataProduct = JSON.parse(localStorage.getItem('produits'));
+// console.log(dataProduct);
 
 //Fonction création éléments
 export const createHtml = () => {
@@ -86,16 +86,7 @@ export const createHtml = () => {
     img.src = data.imgProduct;
     h2_name_description.innerText = data.nameProduct;
     p_color_description.innerText = data.colorProduct;
-    // p_price_description.innerText = data.priceProduct + ' €';
-    // const URL = 'http://localhost:3000/api/products/';
-    // for (let k = 0; k < dataProduct.length; k++) {
-    //   fetch(URL + dataProduct[k].idProduct)
-    //     .then((res) => res.json())
-    //     .then((data) => {
-    //       console.log(data.price);
-    //       p_price_description.innerText = data.price + ' €';
-    //     });
-    // }
+
     const URL = 'http://localhost:3000/api/products/';
 
     fetch(URL + data.idProduct)
