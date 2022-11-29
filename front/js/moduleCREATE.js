@@ -87,14 +87,15 @@ export const createHtml = () => {
     h2_name_description.innerText = data.nameProduct;
     p_color_description.innerText = data.colorProduct;
 
-    const URL = 'http://localhost:3000/api/products/';
+    // const URL = 'http://localhost:3000/api/products/';
+    // fetch(URL + data.idProduct)
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     console.log(data.price);
+    //     p_price_description.innerText = data.price + ' €';
+    //   });
 
-    fetch(URL + data.idProduct)
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data.price);
-        p_price_description.innerText = data.price + ' €';
-      });
+    p_price_description.innerText = data.price + ' €';
 
     p_quantity.innerText = 'Qté : ';
 

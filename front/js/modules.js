@@ -10,7 +10,26 @@ export let loadcart = () => {
 };
 
 /****************************************/
+// export let loadcart = async () => {
+//   let dataProduct = JSON.parse(localStorage.getItem('produits'));
+//   if (dataProduct == null) {
+//     return [];
+//   } else {
+//     for (const datatest of dataProduct) {
+//       let urlapi = await fetch(
+//         'http://localhost:3000/api/products/' + datatest.idProduct
+//       )
+//         .then((res) => res.json())
+//         .then((data) => {
+//           return data.price;
+//         });
+//       console.log(datatest.idProduct);
+//       console.log(urlapi);
+//     }
 
+//     return dataProduct;
+//   }
+// };
 /****************************************/
 
 /****************************************/
