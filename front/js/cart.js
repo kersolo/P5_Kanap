@@ -2,6 +2,7 @@
 import { quantityAffichagePanier } from './modules.js';
 ////import de la fonction permettant la récupération des valeurs du localStorage
 import { loadcart } from './modules.js';
+
 //Déclaration de la variable dataProduct
 //import fonction
 import { createHtml } from './moduleCREATE.js';
@@ -22,6 +23,7 @@ const mainFunction = () => {
     votrePanier.innerHTML = 'Votre panier est vide';
   } else {
     //création DOM panier
+
     createHtml();
     deleteItemProduct();
     changeQuantity();
@@ -83,7 +85,6 @@ let quantityAndTotalPrice = () => {
       previousValue + parseInt(currentValue.quantityProduct),
     0
   );
-
   const totalPrice = dataProduct.reduce(
     (previousValue, currentValue) =>
       previousValue +
@@ -226,7 +227,7 @@ const getDataForm = () => {
 // /****************************************/
 
 let dataProduct = loadcart();
-console.log(dataProduct);
+
 let Quantity = document.querySelector('#totalQuantity');
 let PrixTotal = document.querySelector('#totalPrice');
 //Déclaration des variables pour les messages d'erreur des inputs du formulaire

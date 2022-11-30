@@ -1,19 +1,19 @@
 import { loadcart } from './modules.js';
 
-let dataProduct = loadcart();
+let data = loadcart();
 
 // let dataProduct = JSON.parse(localStorage.getItem('produits'));
 // console.log(dataProduct);
 
 //Fonction création éléments
 export const createHtml = () => {
-  for (let data of dataProduct) {
+  for (let v = 0; v < data.length; v++) {
     let section_cart__items = document.querySelector('#cart__items');
 
     //***Création constantes***//
     let article_cart__item = document.createElement('article');
 
-    article_cart__item.id = data.idProduct;
+    article_cart__item.id = data[v].idProduct;
 
     let div_cart__item__img = document.createElement('div');
     let img = document.createElement('img');
@@ -32,7 +32,7 @@ export const createHtml = () => {
     input.name = 'itemQuantity';
     input.min = 1;
     input.max = 100;
-    input.value = data.quantityProduct;
+    input.value = data[v].quantityProduct;
     let div_cart__item__content__settings__delete =
       document.createElement('div');
     let p_deleteItem = document.createElement('p');
@@ -83,9 +83,10 @@ export const createHtml = () => {
 
     //***AppendChild***//
 
-    img.src = data.imgProduct;
-    h2_name_description.innerText = data.nameProduct;
-    p_color_description.innerText = data.colorProduct;
+    img.src = data[v].imgProduct;
+    img.alt = data[v].name;
+    h2_name_description.innerText = data[v].nameProduct;
+    p_color_description.innerText = data[v].colorProduct;
 
     // const URL = 'http://localhost:3000/api/products/';
     // fetch(URL + data.idProduct)
@@ -95,7 +96,7 @@ export const createHtml = () => {
     //     p_price_description.innerText = data.price + ' €';
     //   });
 
-    p_price_description.innerText = data.price + ' €';
+    p_price_description.innerText = data[v].priceProduct + ' €';
 
     p_quantity.innerText = 'Qté : ';
 

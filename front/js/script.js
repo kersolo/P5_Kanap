@@ -41,7 +41,7 @@ const createCards = (product) => {
   article.appendChild(p);
 
   img.src = product.imageUrl;
-  img.alt = 'blabla';
+  img.alt = product.name;
   h3.innerText = product.name;
   p.innerText = product.description;
 };

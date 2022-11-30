@@ -1,37 +1,33 @@
 //Récupère les valeurs du localStorage
 
-export let loadcart = () => {
-  let dataProduct = localStorage.getItem('produits');
-  if (dataProduct == null) {
-    return [];
-  } else {
-    return JSON.parse(dataProduct);
-  }
-};
-
-/****************************************/
-// export let loadcart = async () => {
-//   let dataProduct = JSON.parse(localStorage.getItem('produits'));
+// export let loadcart = () => {
+//   let dataProduct = localStorage.getItem('produits');
 //   if (dataProduct == null) {
 //     return [];
 //   } else {
-//     for (const datatest of dataProduct) {
-//       let urlapi = await fetch(
-//         'http://localhost:3000/api/products/' + datatest.idProduct
-//       )
-//         .then((res) => res.json())
-//         .then((data) => {
-//           return data.price;
-//         });
-//       console.log(datatest.idProduct);
-//       console.log(urlapi);
-//     }
-
-//     return dataProduct;
+//     return JSON.parse(dataProduct);
 //   }
 // };
-/****************************************/
 
+/****************************************/
+/****************************************/
+export let loadcart = () => {
+  let dataProduct = JSON.parse(localStorage.getItem('produits'));
+  if (dataProduct == null) {
+    return [];
+  } else {
+    for (const data of dataProduct) {
+      fetch('http://localhost:3000/api/products/' + data.idProduct)
+        .then((res) => res.json())
+        .then((dataId) => {
+          let price = dataId.price;
+          data.priceProduct = price;
+        });
+    }
+    console.log(dataProduct);
+    return dataProduct;
+  }
+};
 /****************************************/
 // Fonction permettant affichage quantité après panier dans menu nav
 export let quantityAffichagePanier = () => {

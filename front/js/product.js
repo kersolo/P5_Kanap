@@ -1,5 +1,6 @@
 ////import de la fonction permettant la récupération des valeurs du localStorage
 import { loadcart } from './modules.js';
+
 import { quantityAffichagePanier } from './modules.js';
 
 //Fonction principale
@@ -44,6 +45,7 @@ const createKanap = (item) => {
   title.innerHTML = item.name;
   price.innerHTML = item.price;
   img.src = item.imageUrl;
+  img.alt = item.name;
   p_description.innerHTML = item.description;
 
   //boucle pour le choix de la couleur
@@ -59,6 +61,8 @@ const createKanap = (item) => {
 /****************************************/
 
 //Ajoute les valeurs dans le localStorage
+
+/****************************************/
 const addData = (product) => {
   let dataProduct = loadcart();
 
