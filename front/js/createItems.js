@@ -1,8 +1,56 @@
-import { loadcart } from './modules.js';
+//**********INDEX.JS**********//
+//Création des cards pour affichage produits
+export const createCards = (product) => {
+  let items = document.querySelector('.items');
+  let a = document.createElement('a');
+  let article = document.createElement('article');
+  let img = document.createElement('img');
+  let h3 = document.createElement('h3');
+  let p = document.createElement('p');
+  h3.classList.add('productName');
+  p.classList.add('productDescription');
 
-// let dataProduct = JSON.parse(localStorage.getItem('produits'));
-// console.log(dataProduct);
+  a.href = './product.html?id=' + product._id;
 
+  items.appendChild(a);
+  a.appendChild(article);
+  article.appendChild(h3);
+  article.appendChild(img);
+  article.appendChild(p);
+
+  img.src = product.imageUrl;
+  img.alt = product.name;
+  h3.innerText = product.name;
+  p.innerText = product.description;
+};
+//**********PRODUCT.JS**********//
+//Création des cards
+export const createKanap = (item) => {
+  let item__img = document.querySelector('.item__img');
+  let title = document.querySelector('#title');
+
+  let price = document.querySelector('#price');
+  let img = document.createElement('img');
+  let p_description = document.querySelector('#description');
+  let colors = document.querySelector('#colors');
+
+  item__img.appendChild(img);
+
+  title.innerHTML = item.name;
+  price.innerHTML = item.price;
+  img.src = item.imageUrl;
+  img.alt = item.name;
+  p_description.innerHTML = item.description;
+
+  //boucle pour le choix de la couleur
+  for (const color of item.colors) {
+    let option = document.createElement('option');
+
+    colors.appendChild(option);
+    option.innerHTML = color;
+  }
+};
+//**********CART.JS**********//
 //Fonction création éléments
 export const createHtml = (dataProduct) => {
   for (let v = 0; v < dataProduct.length; v++) {
@@ -76,23 +124,11 @@ export const createHtml = (dataProduct) => {
     );
     div_cart__item__content__settings__delete.appendChild(p_deleteItem);
     //***AppendChild***//
-    //***AppendChild***//
-    //***AppendChild***//
-
-    //***AppendChild***//
 
     img.src = dataProduct[v].imgProduct;
     img.alt = dataProduct[v].name;
     h2_name_description.innerText = dataProduct[v].nameProduct;
     p_color_description.innerText = dataProduct[v].colorProduct;
-
-    // const URL = 'http://localhost:3000/api/products/';
-    // fetch(URL + data.idProduct)
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     console.log(data.price);
-    //     p_price_description.innerText = data.price + ' €';
-    //   });
 
     p_price_description.innerText = dataProduct[v].priceProduct + ' €';
 
@@ -103,5 +139,18 @@ export const createHtml = (dataProduct) => {
     /****************************************/
   }
 };
+export let quantityAffichagePanier = (dataProduct) => {
+  const totalQuantity = dataProduct.reduce(
+    (previousValue, currentValue) =>
+      previousValue + parseInt(currentValue.quantityProduct),
+    0
+  );
 
-let dataProduct;
+  let nav = document.querySelector('nav > ul > a:nth-child(2) li');
+  let span = document.createElement('span');
+  nav.appendChild(span);
+  if (totalQuantity) {
+    span.innerHTML = ' ' + '(' + totalQuantity + ')';
+    span.style.color = 'grey';
+  }
+};
