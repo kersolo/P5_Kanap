@@ -1,6 +1,5 @@
 /****************************************/
-//Récupère les valeurs du localStorage
-
+//récupère les valeurs des produits enregistré dans le localStorage
 export let loadcart = () => {
   let dataProduct = JSON.parse(localStorage.getItem('produits'));
   if (dataProduct == null) {
@@ -10,7 +9,7 @@ export let loadcart = () => {
   }
 };
 /****************************************/
-//Ajout au localstorage
+//ajout d'un produit au localStorage si le produit de même id et même couleur n'a pas déja été ajouté sinon il est incrémenté
 export const addData = async (product) => {
   let foundProduct = dataProduct.find(
     (p) =>
@@ -24,6 +23,7 @@ export const addData = async (product) => {
   localStorage.setItem('produits', JSON.stringify(dataProduct));
 };
 /****************************************/
+//création de l'objet avec les données du produit pour ajout au tableau dans le localStorage
 export const LocalStorage = (item) => {
   const btnAddToCart = document.querySelector('#addToCart');
   const colorKanap = document.querySelector('#colors');
@@ -64,7 +64,7 @@ export const LocalStorage = (item) => {
   });
 };
 /****************************************/
-//Supprimer Produit
+//suppression produit
 export const deleteItemProduct = () => {
   const deleteButton = document.querySelectorAll('.deleteItem');
   for (let i = 0; i < dataProduct.length; i++) {
@@ -85,7 +85,7 @@ export const deleteItemProduct = () => {
   }
 };
 /****************************************/
-// Incrémenter ou décrémenter produit dans le panier
+// incrémenter ou décrémenter produit dans le panier
 export const changeQuantity = () => {
   const inputs = document.querySelectorAll(
     '.cart__item__content__settings__quantity input'
@@ -101,6 +101,7 @@ export const changeQuantity = () => {
   }
 };
 /****************************************/
+//calcul total de la quantité et du prix
 export let quantityAndTotalPrice = async (cartwithprice) => {
   let Quantity = document.querySelector('#totalQuantity');
   let PrixTotal = document.querySelector('#totalPrice');
@@ -119,5 +120,5 @@ export let quantityAndTotalPrice = async (cartwithprice) => {
   PrixTotal.innerText = totalPrice;
 };
 /****************************************/
-/****************************************/
+//création de la variable dataProduct pour l'appel de la fonction loadcart
 let dataProduct = loadcart();

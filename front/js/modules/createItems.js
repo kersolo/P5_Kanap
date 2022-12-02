@@ -1,41 +1,46 @@
 //**********INDEX.JS**********//
-//Création des cards pour affichage produits
+//création des items pour l'affichage des produits sur la page d'accueil
 export const createCards = (product) => {
+  //récupération d'élément du DOM
   let items = document.querySelector('.items');
+  //création d'élements du DOM
   let a = document.createElement('a');
   let article = document.createElement('article');
   let img = document.createElement('img');
   let h3 = document.createElement('h3');
   let p = document.createElement('p');
+  //ajout d'une class aux éléments
   h3.classList.add('productName');
   p.classList.add('productDescription');
-
+  //envoi les données de l'id d'un produit sur la page produit
   a.href = './product.html?id=' + product._id;
-
+  //création des noeuds enfant-parent
   items.appendChild(a);
   a.appendChild(article);
   article.appendChild(h3);
   article.appendChild(img);
   article.appendChild(p);
-
+  //Affichage des éléments
   img.src = product.imageUrl;
   img.alt = product.name;
   h3.innerText = product.name;
   p.innerText = product.description;
 };
+
 //**********PRODUCT.JS**********//
-//Création des cards
+//création des items pour l'affichage des produits sur la page produit
 export const createKanap = (item) => {
+  //récupération d'éléments du DOM
   let item__img = document.querySelector('.item__img');
   let title = document.querySelector('#title');
-
   let price = document.querySelector('#price');
+  //création d'élements du DOM
   let img = document.createElement('img');
   let p_description = document.querySelector('#description');
   let colors = document.querySelector('#colors');
-
+  //création du noeud enfant-parent
   item__img.appendChild(img);
-
+  //affichage des éléments
   title.innerHTML = item.name;
   price.innerHTML = item.price;
   img.src = item.imageUrl;
@@ -50,17 +55,16 @@ export const createKanap = (item) => {
     option.innerHTML = color;
   }
 };
+
 //**********CART.JS**********//
-//Fonction création éléments
+//création des items pour l'affichage des produits sur la page panier
 export const createHtml = (dataProduct) => {
   for (let v = 0; v < dataProduct.length; v++) {
+    //récupération d'élément du DOM
     let section_cart__items = document.querySelector('#cart__items');
-
-    //***Création constantes***//
+    //création d'élements du DOM
     let article_cart__item = document.createElement('article');
-
-    article_cart__item.id = dataProduct[v].idProduct;
-
+    // article_cart__item.id = dataProduct[v].idProduct;
     let div_cart__item__img = document.createElement('div');
     let img = document.createElement('img');
     let div_cart__item__content = document.createElement('div');
@@ -78,13 +82,15 @@ export const createHtml = (dataProduct) => {
     input.name = 'itemQuantity';
     input.min = 1;
     input.max = 100;
+
+    //affichage de la quantité du produit sélectionné
     input.value = dataProduct[v].quantityProduct;
+
     let div_cart__item__content__settings__delete =
       document.createElement('div');
     let p_deleteItem = document.createElement('p');
-    //***Création constantes***//
 
-    //***Ajout Class***//
+    //ajout de classes aux éléments
     article_cart__item.classList.add('cart__item');
     div_cart__item__img.classList.add('cart__item__img');
     div_cart__item__content.classList.add('cart__item__content');
@@ -102,9 +108,8 @@ export const createHtml = (dataProduct) => {
       'cart__item__content__settings__delete'
     );
     p_deleteItem.classList.add('deleteItem');
-    //***Ajout Class***//
 
-    //***AppendChild***//
+    //création des noeuds enfant-parent
     section_cart__items.appendChild(article_cart__item);
     article_cart__item.appendChild(div_cart__item__img);
     div_cart__item__img.appendChild(img);
@@ -123,8 +128,8 @@ export const createHtml = (dataProduct) => {
       div_cart__item__content__settings__delete
     );
     div_cart__item__content__settings__delete.appendChild(p_deleteItem);
-    //***AppendChild***//
 
+    //affichage des éléments
     img.src = dataProduct[v].imgProduct;
     img.alt = dataProduct[v].name;
     h2_name_description.innerText = dataProduct[v].nameProduct;
@@ -139,6 +144,8 @@ export const createHtml = (dataProduct) => {
     /****************************************/
   }
 };
+
+//affichage de la quantité des produits du panier dans menu nav
 export let quantityAffichagePanier = (dataProduct) => {
   const totalQuantity = dataProduct.reduce(
     (previousValue, currentValue) =>
