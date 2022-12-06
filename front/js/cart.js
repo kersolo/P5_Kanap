@@ -6,7 +6,7 @@ import { createHtml } from './modules/createItems.js';
 import { getItem } from './modules/apiGET.js';
 //import de la fonction permettant la suppression d'un produit
 import { deleteItemProduct } from './modules/localStorage.js';
-//import de la fonction permettant l'incrémentation ou la décrémentation un produit
+//import de la fonction permettant l'incrémentation ou la décrémentation d'un produit
 import { changeQuantity } from './modules/localStorage.js';
 //import de la fonction permettant le calcul total de la quantité et du prix des produits afficher sur la page panier
 import { quantityAndTotalPrice } from './modules/localStorage.js';
@@ -45,7 +45,7 @@ const mainFunction = async () => {
     deleteItemProduct();
     changeQuantity();
     quantityAndTotalPrice(cartwithprice);
-    getDataForm();
+    getDataForm(dataProduct);
     quantityAffichagePanier(dataProduct);
   }
 };

@@ -2,7 +2,7 @@
 import { fetchCall } from './modules/apiGET.js';
 //import de la fonction permettant la création des items pour l'affichage des produits sur la page d'accueil
 import { createCards } from './modules/createItems.js';
-//import de la fonction permettant de récupérer les valeurs des produits enregistré dans le localStorage
+//import de la fonction permettant de récupérer les valeurs des produits enregistrés dans le localStorage
 import { loadcart } from './modules/localStorage.js';
 //import de la fonction permettant l'affichage de la quantité du panier dans le menu nav
 import { quantityAffichagePanier } from './modules/createItems.js';

@@ -9,7 +9,7 @@ export const createCards = (product) => {
   let img = document.createElement('img');
   let h3 = document.createElement('h3');
   let p = document.createElement('p');
-  //ajout d'une class aux éléments
+  //ajout de class aux éléments
   h3.classList.add('productName');
   p.classList.add('productDescription');
   //envoi les données de l'id d'un produit sur la page produit
@@ -64,7 +64,6 @@ export const createHtml = (dataProduct) => {
     let section_cart__items = document.querySelector('#cart__items');
     //création d'élements du DOM
     let article_cart__item = document.createElement('article');
-    // article_cart__item.id = dataProduct[v].idProduct;
     let div_cart__item__img = document.createElement('div');
     let img = document.createElement('img');
     let div_cart__item__content = document.createElement('div');
@@ -140,19 +139,19 @@ export const createHtml = (dataProduct) => {
     p_quantity.innerText = 'Qté : ';
 
     p_deleteItem.innerText = 'Supprimer';
-
-    /****************************************/
   }
 };
 
+/****************************************/
 //affichage de la quantité des produits du panier dans menu nav
 export let quantityAffichagePanier = (dataProduct) => {
+  //méthode reduce qui calcul toutes les quantités des produits présent dans le tableau
   const totalQuantity = dataProduct.reduce(
     (previousValue, currentValue) =>
       previousValue + parseInt(currentValue.quantityProduct),
     0
   );
-
+  //Récupération du 2ème enfant de la liste dans le menu nav
   let nav = document.querySelector('nav > ul > a:nth-child(2) li');
   let span = document.createElement('span');
   nav.appendChild(span);

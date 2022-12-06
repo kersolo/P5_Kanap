@@ -9,7 +9,7 @@ export const fetchCall = async () => {
   }
 };
 
-//fonction d'appel de l'API pour la récupération des données d'un produit en fonction de son id réupéré en paramètre avec getItemId
+//fonction d'appel de l'API pour la récupération des données d'un produit en fonction de son id récupéré en paramètre avec getItemId
 export const getItem = async (getItemId) => {
   try {
     const response = await fetch(

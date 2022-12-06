@@ -1,6 +1,3 @@
-//import de la fonction permettant de récupérer les valeurs des produits enregistré dans le localStorage
-import { loadcart } from './localStorage.js';
-
 //vérifie si le prénom inscrit dans le champ correspondant respecte bien les conditions du regEx
 function firstnameTest() {
   if (!/^[a-zA-Z-]{3,20}$/.test(firstName.value)) {
@@ -68,9 +65,9 @@ function errormessage() {
 
   return formIsValid;
 }
-
+// // /****************************************/
 //fonction qui envoie la requête post à l'API
-export const getDataForm = () => {
+export const getDataForm = (dataProduct) => {
   let btnCommander = document.querySelector('#order');
   btnCommander.addEventListener('click', (e) => {
     e.preventDefault();
@@ -136,6 +133,3 @@ address.addEventListener('input', addressTest);
 city.addEventListener('input', cityTest);
 email.addEventListener('input', emailTest);
 // // /****************************************/
-
-//création de la variable dataProduct pour l'appel de la fonction loadcart
-let dataProduct = loadcart();
