@@ -7,6 +7,7 @@ function firstnameTest() {
     formIsValid = true;
     firstNameErrorMsg.innerHTML = '';
   }
+  return formIsValid;
 }
 //vérifie si le nom inscrit dans le champ correspondant respecte bien les conditions du regEx
 function lastNameTest() {
@@ -17,6 +18,7 @@ function lastNameTest() {
     formIsValid = true;
     lastNameErrorMsg.innerHTML = '';
   }
+  return formIsValid;
 }
 //vérifie si l'adresse' inscrite dans le champ correspondant respecte bien les conditions du regEx
 function addressTest() {
@@ -27,6 +29,7 @@ function addressTest() {
     formIsValid = true;
     addressErrorMsg.innerHTML = '';
   }
+  return formIsValid;
 }
 //vérifie si la ville inscrite dans le champ correspondant respecte bien les conditions du regEx
 function cityTest() {
@@ -38,6 +41,7 @@ function cityTest() {
     formIsValid = true;
     cityErrorMsg.innerHTML = '';
   }
+  return formIsValid;
 }
 //vérifie si l'email inscrit dans le champ correspondant respecte bien les conditions du regEx
 function emailTest() {
@@ -52,19 +56,9 @@ function emailTest() {
     formIsValid = true;
     emailErrorMsg.innerHTML = '';
   }
-}
-
-// // /****************************************/
-//récupère les fonction de vérification des champs
-function errormessage() {
-  firstnameTest();
-  lastNameTest();
-  addressTest();
-  cityTest();
-  emailTest();
-
   return formIsValid;
 }
+
 // // /****************************************/
 //fonction qui envoie la requête post à l'API
 export const getDataForm = (dataProduct) => {
@@ -88,8 +82,15 @@ export const getDataForm = (dataProduct) => {
       products.push(idProduct.idProduct);
     }
     //----------
-    //envoi du formulaire et des produits à l'api si il y a des produits dans le panier et que le formulaire est correctement rempli avec l'appel de la fonction de vérification des champs
-    if (dataProduct >= [1] && errormessage()) {
+    //envoi du formulaire et des produits à l'api si il y a des produits dans le panier et que le formulaire est correctement rempli avec l'appel des fonctions de vérification des champs
+    if (
+      dataProduct >= [1] &&
+      firstnameTest() &&
+      lastNameTest() &&
+      addressTest() &&
+      cityTest() &&
+      emailTest()
+    ) {
       fetch('http://localhost:3000/api/products/order', {
         method: 'POST',
         body: JSON.stringify({ contact, products }),
