@@ -1,6 +1,6 @@
 //vérifie si le prénom inscrit dans le champ correspondant respecte bien les conditions du regEx
 function firstnameTest() {
-  if (!/^[a-zA-Z-]{3,20}$/.test(firstName.value)) {
+  if (!/^[a-zA-Z- - ]{3,20}$/.test(firstName.value)) {
     formIsValid = false;
     firstNameErrorMsg.innerHTML = 'Le prénom est invalide';
   } else {
@@ -11,7 +11,7 @@ function firstnameTest() {
 }
 //vérifie si le nom inscrit dans le champ correspondant respecte bien les conditions du regEx
 function lastNameTest() {
-  if (!/^[a-zA-Z-]{3,20}$/.test(lastName.value)) {
+  if (!/^[a-zA-Z- - ]{3,20}$/.test(lastName.value)) {
     formIsValid = false;
     lastNameErrorMsg.innerHTML = 'Le nom est invalide';
   } else {
@@ -22,7 +22,7 @@ function lastNameTest() {
 }
 //vérifie si l'adresse' inscrite dans le champ correspondant respecte bien les conditions du regEx
 function addressTest() {
-  if (!/^[a-zA-Z-0-9 - ]{3,50}$/.test(address.value)) {
+  if (!/^[a-zA-Z-0-9- - ]{3,50}$/.test(address.value)) {
     formIsValid = false;
     addressErrorMsg.innerHTML = "L'adresse est invalide";
   } else {
@@ -33,7 +33,7 @@ function addressTest() {
 }
 //vérifie si la ville inscrite dans le champ correspondant respecte bien les conditions du regEx
 function cityTest() {
-  if (!/^[a-zA-Z-0-9 - ]{3,50}$/.test(city.value)) {
+  if (!/^[a-zA-Z-0-9- - ]{3,50}$/.test(city.value)) {
     // cityErrorMsg.innerHTML = '';
     formIsValid = false;
     cityErrorMsg.innerHTML = 'La ville est invalide';

@@ -104,7 +104,7 @@ export const changeQuantity = () => {
   for (let m = 0; m < inputs.length; m++) {
     inputs[m].addEventListener('input', () => {
       //récupère la valeur de l'input séléctionné
-      dataProduct[m].quantityProduct = inputs[m].value;
+      dataProduct[m].quantityProduct = parseInt(inputs[m].value);
       //enregistre dans le localStorage de la clé produits
       localStorage.setItem('produits', JSON.stringify(dataProduct));
       //recharge la page panier
